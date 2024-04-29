@@ -4,22 +4,27 @@ import 'package:news/ModelApiControl/newscontroller.dart';
 import 'package:news/UIcontroll/UpdateProvider.dart';
 
 class NewsMainPage extends ConsumerWidget {
-  const NewsMainPage({super.key});
-
+   NewsMainPage({super.key});
+final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+ void _openDrawer() {
+    _scaffoldKey.currentState!.openDrawer();
+  }
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final NewsController = ref.watch(newsDataProvider.notifier)..fetchNews(ref);
+    final NewsController = ref.watch(newsDataProvider.notifier).fetchNews(ref);
     final newsData = ref.watch(newsDataProvider);
-    
-    return Scaffold(
-      appBar: AppBar(leading: IconButton(onPressed: () {
-        Scaffold.of(context).openDrawer(
-
-        );
-      }, icon: Icon(Icons.menu)),
-        title: Text('News'),
+    final width = MediaQuery.of(context).size.width;
+    final height = MediaQuery.of(context).size.height;
+    final subtitle =  ref.watch(newsCategoryProvider);
+    return Scaffold(key: _scaffoldKey,
+      appBar: AppBar(leading: IconButton(onPressed: _openDrawer, icon: Icon(Icons.menu)),
+        title: Text('NeWs'),bottom: PreferredSize(preferredSize: Size(width, 50), child: Align(alignment: Alignment.centerLeft,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text('$subtitle',style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold),textAlign: TextAlign.start,),
+          ))),
       ),
-      body: Center(
+      body:Center(
         child: ListView.separated(
           itemBuilder: (context, index) {
             return ListTile(dense: true,
@@ -34,24 +39,59 @@ class NewsMainPage extends ConsumerWidget {
           itemCount: newsData.length,
         ),
       ),drawer: Drawer(
-        child: ListView(
-          // Add your drawer content here (e.g., ListTile widgets)
-          children: [
-            ListTile(
-              title: Text('Item 1'),
-              onTap: () {
-                // Handle item tap
-                Navigator.pop(context); // Close drawer
-              },
-            ),
-            ListTile(
-              title: Text('Item 2'),
-              onTap: () {
-                // Handle item tap
-                Navigator.pop(context); // Close drawer
-              },
-            ),
-          ],
+        child: SafeArea(
+          child: ListView(
+            
+            children: [
+              ListTile(
+                title: Text('Top Headlines',style: TextStyle(fontWeight: FontWeight.bold),),
+                onTap: () {
+                 ref.read(newsCategoryProvider.notifier).update((state) => 'general');
+                  Navigator.pop(context); // Close drawer
+                },
+              ),
+              ListTile(
+                title: Text('Sports',style: TextStyle(fontWeight: FontWeight.bold),),
+                onTap: () {
+                  ref.read(newsCategoryProvider.notifier).update((state) => 'sports');
+                  Navigator.pop(context); // Close drawer
+                },
+              ),ListTile(
+                title: Text('Technology',style: TextStyle(fontWeight: FontWeight.bold),),
+                onTap: () {
+                  ref.read(newsCategoryProvider.notifier).update((state) => 'technology');
+                  Navigator.pop(context); // Close drawer
+                },
+              ),ListTile(
+                title: Text('Science',style: TextStyle(fontWeight: FontWeight.bold),),
+                onTap: () {
+                  ref.read(newsCategoryProvider.notifier).update((state) => 'science');
+                  Navigator.pop(context); // Close drawer
+                },
+              ),
+              ListTile(
+                title: Text('Health',style: TextStyle(fontWeight: FontWeight.bold),),
+                onTap: () {
+                  ref.read(newsCategoryProvider.notifier).update((state) => 'health');
+                  Navigator.pop(context); // Close drawer
+                },
+              ),
+              ListTile(
+                title: Text('Entertainment',style: TextStyle(fontWeight: FontWeight.bold),),
+                onTap: () {
+                  ref.read(newsCategoryProvider.notifier).update((state) => 'entertainment');
+                  Navigator.pop(context); // Close drawer
+                },
+              ),
+              ListTile(
+                title: Text('business',style: TextStyle(fontWeight: FontWeight.bold),),
+                onTap: () {
+                  ref.read(newsCategoryProvider.notifier).update((state) => 'business');
+                  Navigator.pop(context); // Close drawer
+                },
+              ),
+            ],
+          ),
         ),
     ));
-  }}
+  }}//! debug point

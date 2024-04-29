@@ -7,3 +7,6 @@ import 'package:news/ModelApiControl/newscontroller.dart';
 final newsDataProvider = StateNotifierProvider<NewsController, List<NewsModel>>((ref) {
   return NewsController();
 });
+
+// Update the UI based on category like {Sports,Tech,etc}
+final newsCategoryProvider = StateProvider((ref) => 'general');
