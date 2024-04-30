@@ -6,7 +6,7 @@ import 'package:news/UIcontroll/UItheme.dart';
 
 
 void main(List<String> args) {
-  runApp(ProviderScope(child: NewsApp()));
+  runApp(const ProviderScope(child: NewsApp()));
 }
 
 class NewsApp extends StatelessWidget {
@@ -20,7 +20,7 @@ class NewsApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => NewsMainPage(),
-        'details':(context)=>DetailPage()
+        'details':(context)=>const DetailPage()
       },
     );
   }

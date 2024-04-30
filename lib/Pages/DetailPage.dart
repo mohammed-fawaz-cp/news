@@ -5,6 +5,22 @@ class DetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+   
+    final args = ModalRoute.of(context)!.settings.arguments as Map;
+   final controller = newsController(args['url']);
+    return SafeArea(child: Scaffold(
+    
+      body: WebViewWidget(controller: controller),));
   }
 }
+
+
+  
+
+  newsController(String url){
+    return WebViewController()
+  ..setJavaScriptMode(JavaScriptMode.unrestricted)
+ 
+  
+  ..loadRequest(Uri.parse(url));
+  }
