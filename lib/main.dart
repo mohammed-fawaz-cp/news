@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:news/Pages/DetailPage.dart';
 import 'package:news/Pages/NewsMainPage.dart';
 import 'package:news/UIcontroll/UItheme.dart';
 
@@ -19,6 +20,7 @@ class NewsApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => NewsMainPage(),
+        'details':(context)=>DetailPage()
       },
     );
   }
